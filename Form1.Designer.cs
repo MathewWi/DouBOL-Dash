@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Enemy / Item Routes");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Checkpoints");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Routes");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Objects");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Starting Positions");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Areas");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Cameras");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Respawn Positions");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Enemy / Item Routes");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Checkpoints");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Routes");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Objects");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Starting Positions");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Areas");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Cameras");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Respawn Positions");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +65,6 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -246,31 +246,31 @@
             this.treeView1.Enabled = false;
             this.treeView1.Location = new System.Drawing.Point(0, 27);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "EnemyItem";
-            treeNode1.Text = "Enemy / Item Routes";
-            treeNode2.Name = "Checkpoint";
-            treeNode2.Text = "Checkpoints";
-            treeNode3.Name = "Routes";
-            treeNode3.Text = "Routes";
-            treeNode4.Name = "Objects";
-            treeNode4.Text = "Objects";
-            treeNode5.Name = "StartPoints";
-            treeNode5.Text = "Starting Positions";
-            treeNode6.Name = "Areas";
-            treeNode6.Text = "Areas";
-            treeNode7.Name = "Camera";
-            treeNode7.Text = "Cameras";
-            treeNode8.Name = "Respawn";
-            treeNode8.Text = "Respawn Positions";
+            treeNode9.Name = "EnemyItem";
+            treeNode9.Text = "Enemy / Item Routes";
+            treeNode10.Name = "Checkpoint";
+            treeNode10.Text = "Checkpoints";
+            treeNode11.Name = "Routes";
+            treeNode11.Text = "Routes";
+            treeNode12.Name = "Objects";
+            treeNode12.Text = "Objects";
+            treeNode13.Name = "StartPoints";
+            treeNode13.Text = "Starting Positions";
+            treeNode14.Name = "Areas";
+            treeNode14.Text = "Areas";
+            treeNode15.Name = "Camera";
+            treeNode15.Text = "Cameras";
+            treeNode16.Name = "Respawn";
+            treeNode16.Text = "Respawn Positions";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8});
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16});
             this.treeView1.Size = new System.Drawing.Size(134, 528);
             this.treeView1.TabIndex = 20;
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
@@ -309,6 +309,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
@@ -348,13 +352,13 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "DouBOL Dash v0.1 ALPHA";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);

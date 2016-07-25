@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RotationHax.cs" />
     <Compile Include="System\IO\EndianBinaryReader.cs" />
     <Compile Include="System\IO\EndianBinaryWriter.cs" />
     <EmbeddedResource Include="Form1.resx">

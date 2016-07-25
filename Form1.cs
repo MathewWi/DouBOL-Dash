@@ -398,9 +398,9 @@ namespace DouBOLDash
         {
             float xpos, ypos, zpos, xscale, yscale, zscale;
             int playerID, pole;
-            uint rotationX, rotationY, rotationZ;
+            int rotation;
 
-            dataGridView1.ColumnCount = 12;
+            dataGridView1.ColumnCount = 10;
             dataGridView1.Columns[0].Name = "Index";
             dataGridView1.Columns[1].Name = "X";
             dataGridView1.Columns[2].Name = "Y";
@@ -408,11 +408,9 @@ namespace DouBOLDash
             dataGridView1.Columns[4].Name = "X Scale";
             dataGridView1.Columns[5].Name = "Y Scale";
             dataGridView1.Columns[6].Name = "Z Scale";
-            dataGridView1.Columns[7].Name = "Rotation X";
-            dataGridView1.Columns[8].Name = "Rotation Y";
-            dataGridView1.Columns[9].Name = "Rotation Z";
-            dataGridView1.Columns[10].Name = "Pole";
-            dataGridView1.Columns[11].Name = "Player ID";
+            dataGridView1.Columns[7].Name = "Rotation";
+            dataGridView1.Columns[8].Name = "Pole";
+            dataGridView1.Columns[9].Name = "Player ID";
 
             int numPoints;
             if (isMultiplayer == 1)
@@ -446,11 +444,15 @@ namespace DouBOLDash
                     rotationYZ = reader.ReadUInt32();
                     rotationZZ = reader.ReadUInt32();
 
-                    rotationX = ~rotationXZ;
-                    rotationY = ~rotationYZ;
-                    rotationZ = ~rotationZZ;
+                    rotation = RotationHax.returnRotations(rotationXZ, rotationYZ, rotationZZ);
 
-                    /* 
+                    Console.WriteLine(rotationXZ.ToString() + "\n");
+                    Console.WriteLine(rotationYZ.ToString() + "\n");
+                    Console.WriteLine(rotationZZ.ToString() + "\n");
+
+                    //if (rotationYZ == )
+
+                    /*
                      * the 2nd set seems to be padding.
                      * this is also in other parts...
                     */
@@ -460,7 +462,7 @@ namespace DouBOLDash
 
                     reader.ReadUInt16(); // last 2 bytes are padding
 
-                    string[] row = new string[] { "0", xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotationX.ToString(), rotationY.ToString(), rotationZ.ToString(), pole.ToString(), playerID.ToString() };
+                    string[] row = new string[] { "0", xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotation.ToString(), pole.ToString(), playerID.ToString() };
                     dataGridView1.Rows.Add(row);
                 }
             reader.Close();
@@ -473,8 +475,9 @@ namespace DouBOLDash
             uint unk1, unk2;
             ulong unk3, unk4;
             uint rotationX, rotationY, rotationZ;
+            int rotation;
 
-            dataGridView1.ColumnCount = 14;
+            dataGridView1.ColumnCount = 12;
             dataGridView1.Columns[0].Name = "Index";
             dataGridView1.Columns[1].Name = "X";
             dataGridView1.Columns[2].Name = "Y";
@@ -482,13 +485,11 @@ namespace DouBOLDash
             dataGridView1.Columns[4].Name = "X Scale";
             dataGridView1.Columns[5].Name = "Y Scale";
             dataGridView1.Columns[6].Name = "Z Scale";
-            dataGridView1.Columns[7].Name = "Rotation X";
-            dataGridView1.Columns[8].Name = "Rotation Y";
-            dataGridView1.Columns[9].Name = "Rotation Z";
-            dataGridView1.Columns[10].Name = "Unknown 0";
-            dataGridView1.Columns[11].Name = "Unknown 1";
-            dataGridView1.Columns[12].Name = "Unknown 2";
-            dataGridView1.Columns[13].Name = "Unknown 3";
+            dataGridView1.Columns[7].Name = "Rotation";
+            dataGridView1.Columns[8].Name = "Unknown 0";
+            dataGridView1.Columns[9].Name = "Unknown 1";
+            dataGridView1.Columns[10].Name = "Unknown 2";
+            dataGridView1.Columns[11].Name = "Unknown 3";
 
             /*
              * Respawns
@@ -513,6 +514,8 @@ namespace DouBOLDash
                     rotationY = reader.ReadUInt32();
                     rotationZ = reader.ReadUInt32();
 
+                    rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+
                     unk1 = reader.ReadUInt16();
                     unk2 = reader.ReadUInt16();
                     unk3 = reader.ReadUInt64();
@@ -521,7 +524,7 @@ namespace DouBOLDash
                     string unk3Out = unk3.ToString("X");
                     string unk4Out = unk4.ToString("X");
 
-                    string[] row = new string[] { i.ToString(), xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotationX.ToString(), rotationY.ToString(), rotationZ.ToString(), unk1.ToString(), unk2.ToString(), unk3Out, unk4Out };
+                    string[] row = new string[] { i.ToString(), xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotation.ToString(), unk1.ToString(), unk2.ToString(), unk3Out, unk4Out };
                     dataGridView1.Rows.Add(row); 
                 }
             reader.Close();
