@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿/* No license here, this isn't my code.
+ * But this IS Chadderz's code.
+*/
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 

@@ -17,22 +17,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-
+/*
+ * This file includes names of objects.
+ * It takes the object ID...and returns the string.
+*/
 namespace DouBOLDash
 {
-    static class Program
+    class ObjectNames
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        public static string objectIDToString(int objectID)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            if (objectID == 0009)
+                return "Item Box";
+            else if (objectID == 0010)
+                return "Moving Item Box";
+            else if (objectID == 4701)
+                return "Thwomp";
+            else if (objectID == 5008)
+                return "Cactus Piranha Plant";
+            else if (objectID == 5010)
+                return "Dry Dry Desert Tree";
+            else
+                return "DOCUMENT ME";
         }
     }
 }
