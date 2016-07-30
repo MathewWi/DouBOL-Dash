@@ -44,14 +44,6 @@ namespace DouBOLDash
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Enemy / Item Routes");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Checkpoints");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Routes");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Objects");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Starting Positions");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Areas");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Cameras");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Respawn Positions");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,30 +61,75 @@ namespace DouBOLDash
             this.unk8Input = new System.Windows.Forms.TextBox();
             this.listMusicIDS = new System.Windows.Forms.ComboBox();
             this.lapCountInput = new System.Windows.Forms.TextBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkpointTab = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.objectsGrid = new System.Windows.Forms.DataGridView();
+            this.startingPointGrid = new System.Windows.Forms.DataGridView();
+            this.areaGrid = new System.Windows.Forms.DataGridView();
+            this.cameraGrid = new System.Windows.Forms.DataGridView();
+            this.respawnGrid = new System.Windows.Forms.DataGridView();
+            this.enemyGrid = new System.Windows.Forms.DataGridView();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPKEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkpointListTab = new System.Windows.Forms.TabControl();
+            this.checkpointInfoTab = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkpointInfoGrid = new System.Windows.Forms.DataGridView();
+            this.checkpointListGrid = new System.Windows.Forms.DataGridView();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.routeGrid = new System.Windows.Forms.DataGridView();
+            this.routeSettingsGrid = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.checkpointTab.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            this.tabPage10.SuspendLayout();
+            this.tabPage11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startingPointGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areaGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.respawnGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enemyGrid)).BeginInit();
+            this.checkpointListTab.SuspendLayout();
+            this.checkpointInfoTab.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkpointInfoGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkpointListGrid)).BeginInit();
+            this.tabControl2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.routeGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.routeSettingsGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.otherToolStripMenuItem});
+            this.otherToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(970, 24);
@@ -139,27 +176,27 @@ namespace DouBOLDash
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 115);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
+            this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Unknown Float 0x0C";
+            this.label1.Text = "Unknown 0x0C";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 140);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 13);
+            this.label2.Size = new System.Drawing.Size(79, 13);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Unknown Float 0x10";
+            this.label2.Text = "Unknown 0x10";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 166);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(105, 13);
+            this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Unknown Float 0x14";
+            this.label3.Text = "Unknown 0x14";
             // 
             // label4
             // 
@@ -230,84 +267,23 @@ namespace DouBOLDash
             this.lapCountInput.Size = new System.Drawing.Size(40, 20);
             this.lapCountInput.TabIndex = 4;
             // 
-            // treeView1
-            // 
-            this.treeView1.Enabled = false;
-            this.treeView1.Location = new System.Drawing.Point(-1, 26);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "EnemyItem";
-            treeNode1.Text = "Enemy / Item Routes";
-            treeNode2.Name = "Checkpoint";
-            treeNode2.Text = "Checkpoints";
-            treeNode3.Name = "Routes";
-            treeNode3.Text = "Routes";
-            treeNode4.Name = "Objects";
-            treeNode4.Text = "Objects";
-            treeNode5.Name = "StartPoints";
-            treeNode5.Text = "Starting Positions";
-            treeNode6.Name = "Areas";
-            treeNode6.Text = "Areas";
-            treeNode7.Name = "Camera";
-            treeNode7.Text = "Cameras";
-            treeNode8.Name = "Respawn";
-            treeNode8.Text = "Respawn Positions";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8});
-            this.treeView1.Size = new System.Drawing.Size(134, 528);
-            this.treeView1.TabIndex = 20;
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(140, 27);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.checkpointTab);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Controls.Add(this.tabPage8);
+            this.tabControl1.Controls.Add(this.tabPage9);
+            this.tabControl1.Controls.Add(this.tabPage10);
+            this.tabControl1.Controls.Add(this.tabPage11);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(830, 528);
+            this.tabControl1.Size = new System.Drawing.Size(970, 528);
             this.tabControl1.TabIndex = 21;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(822, 502);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Preview";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.dataGridView1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(822, 502);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Tables";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(816, 496);
-            this.dataGridView1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -329,7 +305,7 @@ namespace DouBOLDash
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(822, 502);
+            this.tabPage3.Size = new System.Drawing.Size(962, 502);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Track Settings";
             // 
@@ -340,6 +316,168 @@ namespace DouBOLDash
             this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
             this.otherToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.otherToolStripMenuItem.Text = "Other";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.enemyGrid);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(822, 502);
+            this.tabPage4.TabIndex = 4;
+            this.tabPage4.Text = "Enemy / Item Routes";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // checkpointTab
+            // 
+            this.checkpointTab.Controls.Add(this.checkpointListTab);
+            this.checkpointTab.Location = new System.Drawing.Point(4, 22);
+            this.checkpointTab.Name = "checkpointTab";
+            this.checkpointTab.Padding = new System.Windows.Forms.Padding(3);
+            this.checkpointTab.Size = new System.Drawing.Size(962, 502);
+            this.checkpointTab.TabIndex = 5;
+            this.checkpointTab.Text = "Checkpoints";
+            this.checkpointTab.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.tabControl2);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(962, 502);
+            this.tabPage6.TabIndex = 6;
+            this.tabPage6.Text = "Routes";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.objectsGrid);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(962, 502);
+            this.tabPage7.TabIndex = 7;
+            this.tabPage7.Text = "Objects";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.startingPointGrid);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(962, 502);
+            this.tabPage8.TabIndex = 8;
+            this.tabPage8.Text = "Starting Positions";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.areaGrid);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(962, 502);
+            this.tabPage9.TabIndex = 9;
+            this.tabPage9.Text = "Areas";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.cameraGrid);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(962, 502);
+            this.tabPage10.TabIndex = 10;
+            this.tabPage10.Text = "Cameras";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.respawnGrid);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(962, 502);
+            this.tabPage11.TabIndex = 11;
+            this.tabPage11.Text = "Respawn Positions";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // objectsGrid
+            // 
+            this.objectsGrid.AllowUserToAddRows = false;
+            this.objectsGrid.AllowUserToDeleteRows = false;
+            this.objectsGrid.AllowUserToResizeColumns = false;
+            this.objectsGrid.AllowUserToResizeRows = false;
+            this.objectsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.objectsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.objectsGrid.Location = new System.Drawing.Point(3, 3);
+            this.objectsGrid.Name = "objectsGrid";
+            this.objectsGrid.Size = new System.Drawing.Size(956, 496);
+            this.objectsGrid.TabIndex = 1;
+            // 
+            // startingPointGrid
+            // 
+            this.startingPointGrid.AllowUserToAddRows = false;
+            this.startingPointGrid.AllowUserToDeleteRows = false;
+            this.startingPointGrid.AllowUserToResizeColumns = false;
+            this.startingPointGrid.AllowUserToResizeRows = false;
+            this.startingPointGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.startingPointGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.startingPointGrid.Location = new System.Drawing.Point(3, 3);
+            this.startingPointGrid.Name = "startingPointGrid";
+            this.startingPointGrid.Size = new System.Drawing.Size(956, 496);
+            this.startingPointGrid.TabIndex = 1;
+            // 
+            // areaGrid
+            // 
+            this.areaGrid.AllowUserToAddRows = false;
+            this.areaGrid.AllowUserToDeleteRows = false;
+            this.areaGrid.AllowUserToResizeColumns = false;
+            this.areaGrid.AllowUserToResizeRows = false;
+            this.areaGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.areaGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.areaGrid.Location = new System.Drawing.Point(3, 3);
+            this.areaGrid.Name = "areaGrid";
+            this.areaGrid.Size = new System.Drawing.Size(956, 496);
+            this.areaGrid.TabIndex = 1;
+            // 
+            // cameraGrid
+            // 
+            this.cameraGrid.AllowUserToAddRows = false;
+            this.cameraGrid.AllowUserToDeleteRows = false;
+            this.cameraGrid.AllowUserToResizeColumns = false;
+            this.cameraGrid.AllowUserToResizeRows = false;
+            this.cameraGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.cameraGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cameraGrid.Location = new System.Drawing.Point(3, 3);
+            this.cameraGrid.Name = "cameraGrid";
+            this.cameraGrid.Size = new System.Drawing.Size(956, 496);
+            this.cameraGrid.TabIndex = 1;
+            // 
+            // respawnGrid
+            // 
+            this.respawnGrid.AllowUserToAddRows = false;
+            this.respawnGrid.AllowUserToDeleteRows = false;
+            this.respawnGrid.AllowUserToResizeColumns = false;
+            this.respawnGrid.AllowUserToResizeRows = false;
+            this.respawnGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.respawnGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.respawnGrid.Location = new System.Drawing.Point(3, 3);
+            this.respawnGrid.Name = "respawnGrid";
+            this.respawnGrid.Size = new System.Drawing.Size(956, 496);
+            this.respawnGrid.TabIndex = 1;
+            // 
+            // enemyGrid
+            // 
+            this.enemyGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.enemyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.enemyGrid.Location = new System.Drawing.Point(3, 3);
+            this.enemyGrid.Name = "enemyGrid";
+            this.enemyGrid.Size = new System.Drawing.Size(816, 496);
+            this.enemyGrid.TabIndex = 0;
             // 
             // openToolStripMenuItem
             // 
@@ -385,9 +523,126 @@ namespace DouBOLDash
             this.helpToolStripMenuItem.Image = global::DouBOLDash.Properties.Resources.Question;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.helpToolStripMenuItem.Text = "About";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iPKEditorToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // iPKEditorToolStripMenuItem
+            // 
+            this.iPKEditorToolStripMenuItem.Name = "iPKEditorToolStripMenuItem";
+            this.iPKEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iPKEditorToolStripMenuItem.Text = "IKP Editor";
+            this.iPKEditorToolStripMenuItem.Click += new System.EventHandler(this.iPKEditorToolStripMenuItem_Click);
+            // 
+            // checkpointListTab
+            // 
+            this.checkpointListTab.Controls.Add(this.checkpointInfoTab);
+            this.checkpointListTab.Controls.Add(this.tabPage2);
+            this.checkpointListTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkpointListTab.Location = new System.Drawing.Point(3, 3);
+            this.checkpointListTab.Name = "checkpointListTab";
+            this.checkpointListTab.SelectedIndex = 0;
+            this.checkpointListTab.Size = new System.Drawing.Size(956, 496);
+            this.checkpointListTab.TabIndex = 0;
+            // 
+            // checkpointInfoTab
+            // 
+            this.checkpointInfoTab.Controls.Add(this.checkpointInfoGrid);
+            this.checkpointInfoTab.Location = new System.Drawing.Point(4, 22);
+            this.checkpointInfoTab.Name = "checkpointInfoTab";
+            this.checkpointInfoTab.Padding = new System.Windows.Forms.Padding(3);
+            this.checkpointInfoTab.Size = new System.Drawing.Size(948, 470);
+            this.checkpointInfoTab.TabIndex = 0;
+            this.checkpointInfoTab.Text = "Checkpoint Information";
+            this.checkpointInfoTab.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.checkpointListGrid);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(948, 470);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Checkpoints";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkpointInfoGrid
+            // 
+            this.checkpointInfoGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.checkpointInfoGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkpointInfoGrid.Location = new System.Drawing.Point(3, 3);
+            this.checkpointInfoGrid.Name = "checkpointInfoGrid";
+            this.checkpointInfoGrid.Size = new System.Drawing.Size(942, 464);
+            this.checkpointInfoGrid.TabIndex = 0;
+            // 
+            // checkpointListGrid
+            // 
+            this.checkpointListGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.checkpointListGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkpointListGrid.Location = new System.Drawing.Point(3, 3);
+            this.checkpointListGrid.Name = "checkpointListGrid";
+            this.checkpointListGrid.Size = new System.Drawing.Size(942, 464);
+            this.checkpointListGrid.TabIndex = 0;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(3, 3);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(956, 496);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.routeSettingsGrid);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(948, 470);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Route Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.routeGrid);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(948, 470);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Routes";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // routeGrid
+            // 
+            this.routeGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.routeGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.routeGrid.Location = new System.Drawing.Point(3, 3);
+            this.routeGrid.Name = "routeGrid";
+            this.routeGrid.Size = new System.Drawing.Size(942, 464);
+            this.routeGrid.TabIndex = 0;
+            // 
+            // routeSettingsGrid
+            // 
+            this.routeSettingsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.routeSettingsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.routeSettingsGrid.Location = new System.Drawing.Point(3, 3);
+            this.routeSettingsGrid.Name = "routeSettingsGrid";
+            this.routeSettingsGrid.Size = new System.Drawing.Size(942, 464);
+            this.routeSettingsGrid.TabIndex = 0;
             // 
             // Form1
             // 
@@ -395,7 +650,6 @@ namespace DouBOLDash
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(970, 552);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -404,10 +658,32 @@ namespace DouBOLDash
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.checkpointTab.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.objectsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startingPointGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areaGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.respawnGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enemyGrid)).EndInit();
+            this.checkpointListTab.ResumeLayout(false);
+            this.checkpointInfoTab.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkpointInfoGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkpointListGrid)).EndInit();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.routeGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.routeSettingsGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,14 +711,36 @@ namespace DouBOLDash
         private System.Windows.Forms.TextBox lapCountInput;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ToolStripMenuItem otherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage checkpointTab;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.DataGridView objectsGrid;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.DataGridView startingPointGrid;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.DataGridView areaGrid;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.DataGridView cameraGrid;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.DataGridView respawnGrid;
+        private System.Windows.Forms.DataGridView enemyGrid;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iPKEditorToolStripMenuItem;
+        private System.Windows.Forms.TabControl checkpointListTab;
+        private System.Windows.Forms.TabPage checkpointInfoTab;
+        private System.Windows.Forms.DataGridView checkpointInfoGrid;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView checkpointListGrid;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView routeSettingsGrid;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataGridView routeGrid;
     }
 }
 

@@ -8,3 +8,4 @@ c:\users\mrrean\documents\visual studio 2015\Projects\DouBOLDash\DouBOLDash\obj\
 c:\users\mrrean\documents\visual studio 2015\Projects\DouBOLDash\DouBOLDash\obj\Debug\DouBOLDash.exe
 c:\users\mrrean\documents\visual studio 2015\Projects\DouBOLDash\DouBOLDash\obj\Debug\DouBOLDash.pdb
 C:\Users\MrRean\Documents\Visual Studio 2015\Projects\DouBOLDash\DouBOLDash\obj\Debug\DouBOLDash.AboutBox1.resources
+C:\Users\MrRean\Documents\Visual Studio 2015\Projects\DouBOLDash\DouBOLDash\obj\Debug\DouBOLDash.IKPEditor.resources

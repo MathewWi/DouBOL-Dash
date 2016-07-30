@@ -22,32 +22,21 @@ using System.Threading.Tasks;
 
 /* 
  * RotationHax.cs
- * This file exists because MK:DD has the stupidest way of doing rotations.
- * It's an algorithm I don't feel like cracking. Yes, lazy me and lazy coding.
- * So we just define the rotation values here. Yay.
+ * This is a function that returns the proper rotations.
+ * Thanks to Marionumber1 for helping me with this part.
 */
 namespace DouBOLDash
 {
     class RotationHax
     {
-        public static int returnRotations(uint xrot, uint yrot, uint zrot)
+        public static double returnRotations(int xrot, int yrot, int zrot)
         {
-            if (xrot == 0 && yrot == 655360000 && zrot == 655360000)
-                return 0;
-            else if (xrot == 463409500 && yrot == 463409500 && zrot == 655360000)
-                return 45;
-            else if (xrot == 655360000 && yrot == 0 && zrot == 655360000)
-                return 90;
-            else if (xrot == 0 && yrot == 3639607296 && zrot == 655360000)
-                return 180;
-            else if (xrot == 3831557796 && yrot == 3831557796 && zrot == 655360000)
-                return 225;
-            else if (xrot == 3639607296 && yrot == 0 && zrot == 655360000)
-                return 270;
-            else if (xrot == 3831557796 && yrot == 463409500 && zrot == 655360000)
-                return 315;
-            else
-                return 0;
+            double angle1;
+            double radToDeg = 57.2957795;
+            angle1 = radToDeg * Math.Atan2((double)yrot / (double)655360000, (double)xrot / (double)655360000);
+            angle1 = 90 - angle1;
+
+            return Math.Round(angle1);
         }
     }
 }

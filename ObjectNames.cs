@@ -29,7 +29,7 @@ namespace DouBOLDash
     {
         public static string objectIDToString(int objectID)
         {
-            if (objectID == 0009)
+            if (objectID == 0001)
                 return "Item Box";
             else if (objectID == 0010)
                 return "Moving Item Box";

@@ -59,7 +59,7 @@ namespace DouBOLDash
         public static class Globals
         {
             public static String bolFileStr;
-            public static uint enemyPointCount, checkpointGroupCount, areaCount, respawnCount, cameraCount, routeCount, objCount;
+            public static uint enemyPointCount, checkpointGroupCount, checkpointCount, areaCount, respawnCount, cameraCount, routeCount, objCount;
             public static uint enemyOffset, checkpointOffset, routeListOffset, routePointOffset, objOffset, startingPointOffset, areaOffset, cameraOffset, respawnOffset, unkOffset, readFileSize;
         }
 
@@ -74,7 +74,27 @@ namespace DouBOLDash
                 Globals.bolFileStr = openFileDialog1.FileName;
                 try
                 {
+                    /* we parse these section by section. */
                     parseBOL(Globals.bolFileStr);
+                    parseEnemyRoutes();
+                    parseCheckpointSettings();
+                    parseCheckpoints();
+                    parseRouteSettings();
+                    parseRoutes();
+                    parseObjects();
+                    /* if they say yes we have to parse 3 starting points instead of 1 */
+                    DialogResult dialogResult = MessageBox.Show("Is this a battle map?", "Some Title", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        parseStartingPoints(1);
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        parseStartingPoints(0);
+                    }
+                    parseAreas();
+                    parseCameras();
+                    parseRespawns();
                 }
                 catch (Exception ex)
                 {
@@ -212,7 +232,6 @@ namespace DouBOLDash
                     listMusicIDS.Enabled = true;
                     saveToolStripMenuItem.Enabled = true;
                     saveAsToolStripMenuItem.Enabled = true;
-                    treeView1.Enabled = true;
 
                     // We're done with this reader.
                     reader.Close();
@@ -257,28 +276,11 @@ namespace DouBOLDash
             }
         }
 
-        private void parseEnemyRoutes(int isNode)
+        private void parseEnemyRoutes()
         {
-            int groupVar = 0;
-            int groupNum = 0;
-
-            dataGridView1.ColumnCount = 9;
-            dataGridView1.Columns[0].Name = "Index";
-            dataGridView1.Columns[1].Name = "X";
-            dataGridView1.Columns[2].Name = "Y";
-            dataGridView1.Columns[3].Name = "Z";
-            dataGridView1.Columns[4].Name = "Scale";
-            dataGridView1.Columns[5].Name = "Setting 0";
-            dataGridView1.Columns[6].Name = "Setting 1";
-            dataGridView1.Columns[7].Name = "Group Link";
-            dataGridView1.Columns[8].Name = "Group Setting";
-
             /*
              * Enemy / Item Routes
             */
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
-
             using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
             {
                 reader.BaseStream.Seek(Globals.enemyOffset, 0);
@@ -291,38 +293,182 @@ namespace DouBOLDash
 
                     uint set0 = reader.ReadUInt16();
                     int groupLink = reader.ReadInt16();
-
-                    Console.WriteLine(groupLink.ToString() + "\n");
-
+             
                     float scale = reader.ReadSingle();
                     int groupSetting = reader.ReadInt32();
                     uint set1 = reader.ReadUInt32();
                     reader.ReadUInt32();
 
-                    // this makes it so the subnode doesn't create a node it shouldn't
-                    if (isNode == 0)
+                    enemyGrid.ColumnCount = 9;
+                    enemyGrid.Columns[0].Name = "Index";
+                    enemyGrid.Columns[1].Name = "X";
+                    enemyGrid.Columns[2].Name = "Y";
+                    enemyGrid.Columns[3].Name = "Z";
+                    enemyGrid.Columns[4].Name = "Scale";
+                    enemyGrid.Columns[5].Name = "Setting 0";
+                    enemyGrid.Columns[6].Name = "Setting 1";
+                    enemyGrid.Columns[7].Name = "Group Link";
+                    enemyGrid.Columns[8].Name = "Group Setting";
+
+                    string[] rowObject = new string[] { i.ToString(), xpos.ToString(), ypos.ToString(), zpos.ToString(), scale.ToString(), set0.ToString(), set1.ToString(), groupLink.ToString(), groupSetting.ToString() };
+                    enemyGrid.Rows.Add(rowObject);
+                }
+                reader.Close();
+            }
+        }
+
+        private void parseCheckpointSettings()
+        {
+            checkpointInfoGrid.ColumnCount = 11;
+            checkpointInfoGrid.Columns[0].Name = "Index";
+            checkpointInfoGrid.Columns[1].Name = "Point Length";
+            checkpointInfoGrid.Columns[2].Name = "Group Link";
+            checkpointInfoGrid.Columns[3].Name = "Previous 0";
+            checkpointInfoGrid.Columns[4].Name = "Previous 1";
+            checkpointInfoGrid.Columns[5].Name = "Previous 2";
+            checkpointInfoGrid.Columns[6].Name = "Previous 3";
+            checkpointInfoGrid.Columns[7].Name = "Next 0";
+            checkpointInfoGrid.Columns[8].Name = "Next 1";
+            checkpointInfoGrid.Columns[9].Name = "Next 2";
+            checkpointInfoGrid.Columns[10].Name = "Next 3";
+
+            /*
+             * Checkpoint Settings (to complete dem laps man)
+            */
+            checkpointInfoGrid.Rows.Clear();
+            checkpointInfoGrid.Refresh();
+
+            using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
+            {
+                reader.BaseStream.Seek(Globals.checkpointOffset, 0);
+
+                Globals.checkpointCount = reader.ReadUInt16();
+                int groupLink = reader.ReadInt16();
+                short previous0 = reader.ReadInt16();
+                short previous1 = reader.ReadInt16();
+                short previous2 = reader.ReadInt16();
+                short previous3 = reader.ReadInt16();
+                short next0 = reader.ReadInt16();
+                short next1 = reader.ReadInt16();
+                short next2 = reader.ReadInt16();
+                short next3 = reader.ReadInt16();
+
+                string[] row = new string[] { "0", Globals.checkpointCount.ToString(), groupLink.ToString(), previous0.ToString(), previous1.ToString(), previous2.ToString(), previous3.ToString(), next0.ToString(), next1.ToString(), next2.ToString(), next3.ToString() };
+                checkpointInfoGrid.Rows.Add(row);
+
+                reader.Close();
+            }
+        }
+
+        private void parseCheckpoints()
+        {
+            checkpointListGrid.ColumnCount = 7;
+            checkpointListGrid.Columns[0].Name = "Index";
+            checkpointListGrid.Columns[1].Name = "X1";
+            checkpointListGrid.Columns[2].Name = "Y1";
+            checkpointListGrid.Columns[3].Name = "Z1";
+            checkpointListGrid.Columns[4].Name = "X2";
+            checkpointListGrid.Columns[5].Name = "Y2";
+            checkpointListGrid.Columns[6].Name = "Z2";
+
+            /*
+             * Checkpoints (to complete dem laps man, for real now srs)
+            */
+            checkpointListGrid.Rows.Clear();
+            checkpointListGrid.Refresh();
+
+            using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
+            {
+                reader.BaseStream.Seek(Globals.checkpointOffset + 20, 0);
+
+                // if Globals.checkpointCount is not defined yet...uh oh
+                for (int i = 0; i <= Globals.checkpointCount - 1; i++)
+                {
+                    float x1 = reader.ReadSingle();
+                    float y1 = reader.ReadSingle();
+                    float z1 = reader.ReadSingle();
+                    float x2 = reader.ReadSingle();
+                    float y2 = reader.ReadSingle();
+                    float z2 = reader.ReadSingle();
+                    reader.ReadUInt32();
+
+                    string[] row = new string[] { i.ToString(), x1.ToString(), y1.ToString(), z1.ToString(), x2.ToString(), y2.ToString(), z2.ToString() };
+                    checkpointListGrid.Rows.Add(row);
+                }
+
+                reader.Close();
+            }
+        }
+
+        private void parseRouteSettings()
+        {
+            routeSettingsGrid.ColumnCount = 3;
+            routeSettingsGrid.Columns[0].Name = "Index";
+            routeSettingsGrid.Columns[1].Name = "Point Length";
+            routeSettingsGrid.Columns[2].Name = "Point Starting ID";
+
+            /*
+             * Routes Settings (path settings n shiz)
+            */
+            routeSettingsGrid.Rows.Clear();
+            routeSettingsGrid.Refresh();
+
+            using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
+            {
+                reader.BaseStream.Seek(Globals.routeListOffset, 0);
+
+                for (int i = 0; i <= Globals.routeCount - 1; i++)
+                {
+                    int pointLength = reader.ReadInt16();
+                    int startingIndex = reader.ReadInt16();
+
+                    // padding.
+                    for (int h = 0; h <= 3; h++)
                     {
-                        // now we check if groupLink is not -1.
-                        // The reason is because when it's not -1, it creates a new group
-                        // so we create a group when this is entered
-                        if (groupLink != -1)
-                        {
-                            // groupVar+1 each run. This makes it so we can cut the groups in half
-                            // we'd have double the amount of groups we need, so only enter per 2 non -1 entries
-                            ++groupVar;
-                            if (groupVar % 2 == 0)
-                            {
-                                // add our node
-                                string childNode;
-                                childNode = "Group " + groupNum.ToString();
-                                treeView1.SelectedNode.Nodes.Add(childNode);
-                                ++groupNum;
-                            }
-                        }
+                        reader.ReadUInt32();
                     }
 
-                    string[] row = new string[] { "0", xpos.ToString(), ypos.ToString(), zpos.ToString(), scale.ToString(), set0.ToString(), set1.ToString(), groupLink.ToString(), groupSetting.ToString() };
-                    dataGridView1.Rows.Add(row);
+                    string[] row = new string[] { i.ToString(), pointLength.ToString(), startingIndex.ToString() };
+                    routeSettingsGrid.Rows.Add(row);
+                }
+                reader.Close();
+            }
+        }
+
+        private void parseRoutes()
+        {
+            routeGrid.ColumnCount = 4;
+            routeGrid.Columns[0].Name = "Index";
+            routeGrid.Columns[1].Name = "X";
+            routeGrid.Columns[2].Name = "Y";
+            routeGrid.Columns[3].Name = "Z";
+
+            /*
+             * Routes (like paths n shiz)
+            */
+            routeGrid.Rows.Clear();
+            routeGrid.Refresh();
+            uint offsSub = Globals.objOffset - Globals.routePointOffset;
+            uint numPoints = offsSub / 32;
+
+            using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
+            {
+                reader.BaseStream.Seek(Globals.routePointOffset, 0);
+
+                for (int i = 0; i <= numPoints - 1; i++)
+                {
+                    float xpos = reader.ReadSingle();
+                    float ypos = reader.ReadSingle();
+                    float zpos = reader.ReadSingle();
+
+                    // padding.
+                    for (int h = 0; h <= 4; h++)
+                    {
+                        reader.ReadUInt32();
+                    }
+
+                    string[] row = new string[] { i.ToString(), xpos.ToString(), ypos.ToString(), zpos.ToString()};
+                    routeGrid.Rows.Add(row);
                 }
                 reader.Close();
             }
@@ -330,30 +476,28 @@ namespace DouBOLDash
 
         private void parseObjects()
         {
-            dataGridView1.ColumnCount = 17;
-            dataGridView1.Columns[0].Name = "Index";
-            dataGridView1.Columns[1].Name = "Object Name";
-            dataGridView1.Columns[2].Name = "X";
-            dataGridView1.Columns[3].Name = "Y";
-            dataGridView1.Columns[4].Name = "Z";
-            dataGridView1.Columns[5].Name = "X Scale";
-            dataGridView1.Columns[6].Name = "Y Scale";
-            dataGridView1.Columns[7].Name = "Z Scale";
-            dataGridView1.Columns[8].Name = "Rotation";
-            dataGridView1.Columns[9].Name = "Object ID";
-            dataGridView1.Columns[10].Name = "Route ID";
-            dataGridView1.Columns[11].Name = "Setting 0";
-            dataGridView1.Columns[12].Name = "Setting 1";
-            dataGridView1.Columns[13].Name = "Setting 2";
-            dataGridView1.Columns[14].Name = "Setting 3";
-            dataGridView1.Columns[15].Name = "Setting 4";
-            dataGridView1.Columns[16].Name = "Setting 5";
+            objectsGrid.ColumnCount = 17;
+            objectsGrid.Columns[0].Name = "Index";
+            objectsGrid.Columns[1].Name = "Object Name";
+            objectsGrid.Columns[2].Name = "X";
+            objectsGrid.Columns[3].Name = "Y";
+            objectsGrid.Columns[4].Name = "Z";
+            objectsGrid.Columns[5].Name = "X Scale";
+            objectsGrid.Columns[6].Name = "Y Scale";
+            objectsGrid.Columns[7].Name = "Z Scale";
+            objectsGrid.Columns[8].Name = "Rotation";
+            objectsGrid.Columns[9].Name = "Object ID";
+            objectsGrid.Columns[10].Name = "Route ID";
+            objectsGrid.Columns[11].Name = "Setting 0";
+            objectsGrid.Columns[12].Name = "Setting 1";
+            objectsGrid.Columns[13].Name = "Setting 2";
+            objectsGrid.Columns[14].Name = "Setting 3";
+            objectsGrid.Columns[15].Name = "Setting 4";
+            objectsGrid.Columns[16].Name = "Setting 5";
 
             /*
              * Objects
             */
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
             using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
             {
                 reader.BaseStream.Seek(Globals.objOffset, 0);
@@ -369,11 +513,13 @@ namespace DouBOLDash
                     float yscale = reader.ReadSingle();
                     float zscale = reader.ReadSingle();
 
-                    uint rotationX = reader.ReadUInt32();
-                    uint rotationY = reader.ReadUInt32();
-                    uint rotationZ = reader.ReadUInt32();
+                    int rotationX = reader.ReadInt32();
+                    int rotationY = reader.ReadInt32();
+                    int rotationZ = reader.ReadInt32();
 
-                    int rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+                    double rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+
+                    Math.Round(rotation);
 
                     // objID is never negative so let's make it an int
                     int objID = reader.ReadInt16();
@@ -395,7 +541,7 @@ namespace DouBOLDash
                     string set5Out = set5.ToString("X");
 
                     string[] row = new string[] { i.ToString(), objectName, xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotation.ToString(), objID.ToString(), routeID.ToString(), set0Out, set1Out, set2Out, set3Out, set4Out, set5Out };
-                    dataGridView1.Rows.Add(row);
+                    objectsGrid.Rows.Add(row);
                 }
                 reader.Close();
             }
@@ -403,17 +549,17 @@ namespace DouBOLDash
 
         private void parseStartingPoints(int isMultiplayer)
         {
-            dataGridView1.ColumnCount = 10;
-            dataGridView1.Columns[0].Name = "Index";
-            dataGridView1.Columns[1].Name = "X";
-            dataGridView1.Columns[2].Name = "Y";
-            dataGridView1.Columns[3].Name = "Z";
-            dataGridView1.Columns[4].Name = "X Scale";
-            dataGridView1.Columns[5].Name = "Y Scale";
-            dataGridView1.Columns[6].Name = "Z Scale";
-            dataGridView1.Columns[7].Name = "Rotation";
-            dataGridView1.Columns[8].Name = "Pole";
-            dataGridView1.Columns[9].Name = "Player ID";
+            startingPointGrid.ColumnCount = 10;
+            startingPointGrid.Columns[0].Name = "Index";
+            startingPointGrid.Columns[1].Name = "X";
+            startingPointGrid.Columns[2].Name = "Y";
+            startingPointGrid.Columns[3].Name = "Z";
+            startingPointGrid.Columns[4].Name = "X Scale";
+            startingPointGrid.Columns[5].Name = "Y Scale";
+            startingPointGrid.Columns[6].Name = "Z Scale";
+            startingPointGrid.Columns[7].Name = "Rotation";
+            startingPointGrid.Columns[8].Name = "Pole";
+            startingPointGrid.Columns[9].Name = "Player ID";
 
             int numPoints;
             if (isMultiplayer == 1)
@@ -424,8 +570,8 @@ namespace DouBOLDash
             /*
              * Respawns
             */
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
+            startingPointGrid.Rows.Clear();
+            startingPointGrid.Refresh();
             using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
             {
                 for (int i = 1; i <= numPoints; i++)
@@ -441,11 +587,13 @@ namespace DouBOLDash
                     float yscale = reader.ReadSingle();
                     float zscale = reader.ReadSingle();
 
-                    uint rotationXZ = reader.ReadUInt32();
-                    uint rotationYZ = reader.ReadUInt32();
-                    uint rotationZZ = reader.ReadUInt32();
+                    int rotationXZ = reader.ReadInt32();
+                    int rotationYZ = reader.ReadInt32();
+                    int rotationZZ = reader.ReadInt32();
 
-                    int rotation = RotationHax.returnRotations(rotationXZ, rotationYZ, rotationZZ);
+                    double rotation = RotationHax.returnRotations(rotationXZ, rotationYZ, rotationZZ);
+
+                    Math.Round(rotation);
 
                     int pole = reader.ReadByte();
                     int playerID = reader.ReadByte();
@@ -453,33 +601,33 @@ namespace DouBOLDash
                     reader.ReadUInt16(); // last 2 bytes are padding
 
                     string[] row = new string[] { "0", xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotation.ToString(), pole.ToString(), playerID.ToString() };
-                    dataGridView1.Rows.Add(row);
+                    startingPointGrid.Rows.Add(row);
                 }
-            reader.Close();
+                reader.Close();
             }
         }
 
         private void parseAreas()
         {
-            dataGridView1.ColumnCount = 12;
-            dataGridView1.Columns[0].Name = "Index";
-            dataGridView1.Columns[1].Name = "X";
-            dataGridView1.Columns[2].Name = "Y";
-            dataGridView1.Columns[3].Name = "Z";
-            dataGridView1.Columns[4].Name = "X Scale";
-            dataGridView1.Columns[5].Name = "Y Scale";
-            dataGridView1.Columns[6].Name = "Z Scale";
-            dataGridView1.Columns[7].Name = "Rotation";
-            dataGridView1.Columns[8].Name = "Unknown 0";
-            dataGridView1.Columns[9].Name = "Unknown 1";
-            dataGridView1.Columns[10].Name = "Unknown 2";
-            dataGridView1.Columns[11].Name = "Unknown 3";
+            areaGrid.ColumnCount = 12;
+            areaGrid.Columns[0].Name = "Index";
+            areaGrid.Columns[1].Name = "X";
+            areaGrid.Columns[2].Name = "Y";
+            areaGrid.Columns[3].Name = "Z";
+            areaGrid.Columns[4].Name = "X Scale";
+            areaGrid.Columns[5].Name = "Y Scale";
+            areaGrid.Columns[6].Name = "Z Scale";
+            areaGrid.Columns[7].Name = "Rotation";
+            areaGrid.Columns[8].Name = "Unknown 0";
+            areaGrid.Columns[9].Name = "Unknown 1";
+            areaGrid.Columns[10].Name = "Unknown 2";
+            areaGrid.Columns[11].Name = "Unknown 3";
 
             /*
              * Areas
             */
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
+            areaGrid.Rows.Clear();
+            areaGrid.Refresh();
             using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
             {
                 reader.BaseStream.Seek(Globals.areaOffset, 0);
@@ -494,11 +642,13 @@ namespace DouBOLDash
                     float yscale = reader.ReadSingle();
                     float zscale = reader.ReadSingle();
 
-                    uint rotationX = reader.ReadUInt32();
-                    uint rotationY = reader.ReadUInt32();
-                    uint rotationZ = reader.ReadUInt32();
+                    int rotationX = reader.ReadInt32();
+                    int rotationY = reader.ReadInt32();
+                    int rotationZ = reader.ReadInt32();
 
-                    int rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+                    double rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+
+                    Math.Round(rotation);
 
                     uint unk1 = reader.ReadUInt16();
                     uint unk2 = reader.ReadUInt16();
@@ -509,46 +659,131 @@ namespace DouBOLDash
                     string unk4Out = unk4.ToString("X");
 
                     string[] row = new string[] { i.ToString(), xpos.ToString(), ypos.ToString(), zpos.ToString(), xscale.ToString(), yscale.ToString(), zscale.ToString(), rotation.ToString(), unk1.ToString(), unk2.ToString(), unk3Out, unk4Out };
-                    dataGridView1.Rows.Add(row); 
+                    areaGrid.Rows.Add(row);
                 }
-            reader.Close();
+                reader.Close();
             }
         }
 
-        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void parseCameras()
         {
-            // Enemy / Item Route Root Nodes
-            if (treeView1.SelectedNode.Index == 0 && treeView1.SelectedNode.Parent == null)
-                parseEnemyRoutes(0);
-            // Enemy / Item Route subnodes
-            else if (treeView1.SelectedNode.Index == 0 && treeView1.SelectedNode.Parent != null)
-                parseEnemyRoutes(1);
-            // Objects
-            else if (treeView1.SelectedNode.Index == 3)
-                parseObjects();
-
-            // here's the thing about starting points.
-            // They don't have a set count for how many there are. 
-            // So we have to ask the user if this track is a battle stage.
-            // Battle stages have 4 starts. Regular has 1.
-            else if (treeView1.SelectedNode.Index == 4)
+            cameraGrid.ColumnCount = 23;
+            cameraGrid.Columns[0].Name = "Index";
+            cameraGrid.Columns[1].Name = "X1";
+            cameraGrid.Columns[2].Name = "Y1";
+            cameraGrid.Columns[3].Name = "Z1";
+            cameraGrid.Columns[4].Name = "Rotation";
+            cameraGrid.Columns[5].Name = "X2";
+            cameraGrid.Columns[6].Name = "Y2";
+            cameraGrid.Columns[7].Name = "Z2";
+            cameraGrid.Columns[8].Name = "X3";
+            cameraGrid.Columns[9].Name = "Y3";
+            cameraGrid.Columns[10].Name = "Z3";
+            cameraGrid.Columns[11].Name = "Unknown 0";
+            cameraGrid.Columns[12].Name = "Cam Type";
+            cameraGrid.Columns[13].Name = "Starting Zoom";
+            cameraGrid.Columns[14].Name = "Camera Duration";
+            cameraGrid.Columns[15].Name = "Unknown 1";
+            cameraGrid.Columns[16].Name = "Unknown 2";
+            cameraGrid.Columns[17].Name = "Unknown 3";
+            cameraGrid.Columns[18].Name = "Route ID";
+            cameraGrid.Columns[19].Name = "Speed";
+            cameraGrid.Columns[20].Name = "End Zoom";
+            cameraGrid.Columns[21].Name = "Next Camera ID";
+            cameraGrid.Columns[22].Name = "Name";
+            /*
+             * Cameras
+            */
+            cameraGrid.Rows.Clear();
+            cameraGrid.Refresh();
+            using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
             {
-                DialogResult dialogResult = MessageBox.Show("Is this a battle map?", "Some Title", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                reader.BaseStream.Seek(Globals.cameraOffset, 0);
+
+                for (int i = 0; i <= Globals.cameraCount - 1; i++)
                 {
-                    parseStartingPoints(1);
+                    float x1pos = reader.ReadSingle();
+                    float y1pos = reader.ReadSingle();
+                    float z1pos = reader.ReadSingle();
+
+                    int rotationX = reader.ReadInt32();
+                    int rotationY = reader.ReadInt32();
+                    int rotationZ = reader.ReadInt32();
+
+                    double rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+
+                    float x2pos = reader.ReadSingle();
+                    float y2pos = reader.ReadSingle();
+                    float z2pos = reader.ReadSingle();
+
+                    float x3pos = reader.ReadSingle();
+                    float y3pos = reader.ReadSingle();
+                    float z3pos = reader.ReadSingle();
+
+                    int unk0 = reader.ReadByte();
+                    int camType = reader.ReadByte();
+                    uint startZoom = reader.ReadUInt16();
+                    int cameraDur = reader.ReadInt16();
+                    uint unk1 = reader.ReadUInt16();
+                    uint unk2 = reader.ReadUInt16();
+                    uint unk3 = reader.ReadUInt16();
+                    int routeID = reader.ReadInt16();
+                    uint routeSpeed = reader.ReadUInt16();
+                    uint endZoom = reader.ReadUInt16();
+                    int nextCam = reader.ReadInt16();
+
+                    string camName = Encoding.ASCII.GetString(reader.ReadBytes(4));
+
+                    string[] row = new string[] { i.ToString(), x1pos.ToString(), y1pos.ToString(), z1pos.ToString(), rotation.ToString(), x2pos.ToString(), y2pos.ToString(), z2pos.ToString(), x3pos.ToString(), y3pos.ToString(), z3pos.ToString(), unk0.ToString(), camType.ToString(), startZoom.ToString(), cameraDur.ToString(), unk1.ToString(), unk2.ToString(), unk3.ToString(), routeID.ToString(), routeSpeed.ToString(), endZoom.ToString(), nextCam.ToString(), camName.ToString()};
+                    cameraGrid.Rows.Add(row);
                 }
-                else if (dialogResult == DialogResult.No)
-                {
-                    parseStartingPoints(0);
-                }
+                reader.Close();
             }
-            // Areas
-            else if (treeView1.SelectedNode.Index == 5)
-                parseAreas();
-            // Other we haven't parsed yet (or something odd landed in here)
-            else
-                MessageBox.Show("Not supported yet.");
+        }
+
+        private void parseRespawns()
+        {
+            respawnGrid.ColumnCount = 9;
+            respawnGrid.Columns[0].Name = "Index";
+            respawnGrid.Columns[1].Name = "X";
+            respawnGrid.Columns[2].Name = "Y";
+            respawnGrid.Columns[3].Name = "Z";
+            respawnGrid.Columns[4].Name = "Rotation";
+            respawnGrid.Columns[5].Name = "Respawn ID";
+            respawnGrid.Columns[6].Name = "Unknown 0";
+            respawnGrid.Columns[7].Name = "Unknown 1";
+            respawnGrid.Columns[8].Name = "Unknown 2";
+            /*
+             * Respawn Positions
+            */
+            respawnGrid.Rows.Clear();
+            respawnGrid.Refresh();
+            using (EndianBinaryReader reader = new EndianBinaryReader(File.Open(Globals.bolFileStr, FileMode.Open)))
+            {
+                reader.BaseStream.Seek(Globals.respawnOffset, 0);
+
+                for (int i = 0; i <= Globals.respawnCount - 1; i++)
+                {
+                    float xpos = reader.ReadSingle();
+                    float ypos = reader.ReadSingle();
+                    float zpos = reader.ReadSingle();
+
+                    int rotationX = reader.ReadInt32();
+                    int rotationY = reader.ReadInt32();
+                    int rotationZ = reader.ReadInt32();
+
+                    double rotation = RotationHax.returnRotations(rotationX, rotationY, rotationZ);
+
+                    int respawnID = reader.ReadInt16();
+                    int unk0 = reader.ReadInt16();
+                    short unk1 = reader.ReadInt16();
+                    short unk2 = reader.ReadInt16();
+
+                    string[] row = new string[] { i.ToString(), xpos.ToString(), ypos.ToString(), zpos.ToString(), rotation.ToString(), respawnID.ToString(), unk0.ToString(), unk1.ToString(), unk2.ToString() };
+                    respawnGrid.Rows.Add(row);
+                }
+                reader.Close();
+            }
         }
 
         public void saveBOL(String bolFile)
@@ -626,83 +861,6 @@ namespace DouBOLDash
                     writer.Write(unkFloat3); // Unknown Float (4 bytes)
                     writer.Write(lapCount); // Lap Count (1 byte)
                     writer.Write(musicID); // Music ID (1 byte)
-
-                    /* Objects */
-                    // object count
-                    writer.BaseStream.Seek(0x1E, 0);
-                    writer.Write(Globals.objCount);
-                    // object offset
-                    writer.BaseStream.Seek(0x54, 0);
-                    writer.Write(Globals.objOffset);
-
-                    // we jump to the offset with the objects
-                    writer.BaseStream.Seek(Globals.objOffset, 0);
-
-                    // we forcefully select the Objects node to dump the data
-                    TreeNode treeNode = treeView1.Nodes[3];
-                    treeView1.SelectedNode = treeNode;
-                    Console.Write(treeView1.SelectedNode.ToString() + " \n");
-                    treeView1.Focus();
-
-                    Console.WriteLine(dataGridView1.Rows.Count.ToString() + " \n");
-
-                    // go through each DataGrid row and dump the data.
-                    // we don't dump 0 or 1 because they're just index & name
-                    // both don't get inserted back into the game
-                    for (int row = 0; row < dataGridView1.Rows.Count; row++)
-                    {
-                        string xpos = dataGridView1.Rows[row].Cells[2].Value.ToString();
-                        string ypos = dataGridView1.Rows[row].Cells[3].Value.ToString();
-                        string zpos = dataGridView1.Rows[row].Cells[4].Value.ToString();
-                        string xscale = dataGridView1.Rows[row].Cells[5].Value.ToString();
-                        string yscale = dataGridView1.Rows[row].Cells[6].Value.ToString();
-                        string zscale = dataGridView1.Rows[row].Cells[7].Value.ToString();
-                        string rotation = dataGridView1.Rows[row].Cells[8].Value.ToString();
-                        string obj = dataGridView1.Rows[row].Cells[9].Value.ToString();
-                        string route = dataGridView1.Rows[row].Cells[10].Value.ToString();
-                        string set0 = dataGridView1.Rows[row].Cells[11].Value.ToString();
-                        string set1 = dataGridView1.Rows[row].Cells[12].Value.ToString();
-                        string set2 = dataGridView1.Rows[row].Cells[13].Value.ToString();
-                        string set3 = dataGridView1.Rows[row].Cells[14].Value.ToString();
-                        string set4 = dataGridView1.Rows[row].Cells[15].Value.ToString();
-                        string set5 = dataGridView1.Rows[row].Cells[16].Value.ToString();
-
-                        float xposFloat = Convert.ToSingle(xpos); // 4
-                        float yposFloat = Convert.ToSingle(ypos); // 4
-                        float zposFloat = Convert.ToSingle(zpos); // 4
-                        float xscaleFloat = Convert.ToSingle(xscale); // 4
-                        float yscaleFloat = Convert.ToSingle(yscale); // 4
-                        float zscaleFloat = Convert.ToSingle(zscale); // 4
-                        uint rotations = Convert.ToUInt32(rotation); // 4
-                        uint unk1 = Convert.ToUInt32(655360000); // 4
-                        uint unk2 = Convert.ToUInt32(655360000); // 4
-                        short objectID = Convert.ToInt16(obj, 16); // 2
-                        short routeID = Convert.ToInt16(route); // 2
-                        int set0l = Convert.ToInt32(set0, 16); // 4
-                        int set1l = Convert.ToInt32(set1, 16); // 4
-                        int set2l = Convert.ToInt32(set2, 16); // 4
-                        int set3l = Convert.ToInt32(set3, 16); // 4
-                        int set4l = Convert.ToInt32(set4, 16); // 4
-                        int set5l = Convert.ToInt32(set5, 16); // 4
-
-                        writer.Write(xposFloat); // 4
-                        writer.Write(yposFloat); // 4
-                        writer.Write(zposFloat); // 4
-                        writer.Write(xscaleFloat); // 4
-                        writer.Write(yscaleFloat); // 4
-                        writer.Write(zscaleFloat); // 4
-                        writer.Write(rotations); // 4
-                        writer.Write(unk1); // 4
-                        writer.Write(unk2); // 4
-                        writer.Write(objectID); // 2
-                        writer.Write(routeID); // 2
-                        writer.Write(set0l); // 4
-                        writer.Write(set1l); // 4
-                        writer.Write(set2l); // 4
-                        writer.Write(set3l); // 4
-                        writer.Write(set4l); // 4
-                        writer.Write(set5l); // 4
-                    }
                     // close the file
                     writer.Close();
                 }
@@ -713,6 +871,12 @@ namespace DouBOLDash
         {
             AboutBox1 aboutBox = new AboutBox1();
             aboutBox.Show();
+        }
+
+        private void iPKEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           IKPEditor ikpEditor = new IKPEditor();
+            ikpEditor.Show();
         }
     }
 }
